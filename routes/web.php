@@ -10,7 +10,23 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [
+        'uses' => 'ProductsController@index',
+        'as' => 'index',
+  ]);
 
-Route::get('/', function () {
+Route::group(['as' => 'prod.', 'prefix' => 'products'], function(){
+    Route::get('/', [
+        'as' => 'index', 
+        'uses' => 'ProductsController@index'
+    ]);
+
+    Route::post('products', [        
+        'as' => 'store', 
+        'uses' => 'ProductsController@store'
+    ]);
+});
+/*
+Route::get('/products', function () {
     return view('products');
 });
