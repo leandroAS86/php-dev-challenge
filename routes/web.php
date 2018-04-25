@@ -26,6 +26,18 @@ Route::group(['as' => 'prod.', 'prefix' => 'products'], function(){
         'uses' => 'ProductsController@store'
     ]);
 });
+
+Route::group(['as' => 'ord.', 'prefix' => 'orders'], function(){
+    Route::get('/', [
+        'as' => 'index', 
+        'uses' => 'OrdersController@index'
+    ]);
+
+    Route::post('orders', [
+        'as' => 'store', 
+        'uses' => 'OrdersController@store'
+    ]);
+});
 /*
 Route::get('/products', function () {
     return view('products');

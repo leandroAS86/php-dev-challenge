@@ -5,7 +5,6 @@
     @include('layouts.error')
 
     @include('layouts.message')
-
     
       <div class="col-sm-12">        
         <form method = "post" action="{{route('prod.store')}}"> 

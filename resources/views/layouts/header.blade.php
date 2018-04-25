@@ -7,11 +7,14 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Blog Template for Bootstrap</title>
+    <title>Polvo PHP challenge</title>
 
     <!-- Bootstrap core CSS -->
    <link href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+   <link href="{{ asset('bootstrap/dist/js/bootstrap.min.js') }}" type="text/css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="products.css" rel="stylesheet">
+    <link href="polvo.css" rel="stylesheet">
+
+    <script src="{{asset('js/page.js')}}"></script>
   </head>

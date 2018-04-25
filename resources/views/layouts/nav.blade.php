@@ -4,10 +4,10 @@
     	 <div class="collapse navbar-collapse" id="navbarText">
 		    <ul class="navbar-nav mr-auto">
 		      <li class="nav-item active">
-		        <a class="nav-link " href="#">Produtos <span class="sr-only">(current)</span></a>
+		        <a class="nav-link " href="{{route('prod.index')}}" onclick="page('Produtos')">Produtos </a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">Pedidos</a>
+		        <a class="nav-link" href="{{route('ord.index')}}" onclick="page('Pedidos')">Pedidos</a>
 		      </li>
 		    </ul>
 		  </div>

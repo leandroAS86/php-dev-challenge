@@ -1,16 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-
+use App\Order;
 use App\Product;
 
-class ProductsController extends Controller
+class OrdersController extends Controller
 {
-    /**
-     * Create a new controller instance.
+     /* Create a new controller instance.
      *
      * @return void
      */
@@ -26,16 +25,14 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('polvo.products');
+        return view('polvo.orders');
     }
 
     public function store(){
 
     	$validator = Validator::make(request()->all(), [
-            'name' => 'required|string|max:255',
             'sku' => 'required|string|max:255',
-            'price' => 'required|string|max:255',
-            'description' => 'required|string'
+            'qtd' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -45,16 +42,18 @@ class ProductsController extends Controller
                 ->withInput();
         }
 
-        Product::create([
-        	'name' => request('name'),
-        	'sku' => request('sku'),
-        	'price' => request('price'),
-        	'description' => request('description')
+        $prod = Product::where('sku', request('sku'))->get()->toArray();
+         
+        $total = $prod[0]['price'] * request('qtd');
+
+        Order::create([
+        	'value' => $total,
+        	'product_id' => $prod[0]['id'],
         ]);
 
         return redirect()
     			->back()
-                ->with('success', 'Produto adicionado com sucesso'); 
+                ->with('success', 'Pedido adicionado com sucesso'); 
         /*$product = new Product;
         $product->request(['name','sdk','price','description']);
         $product->save();

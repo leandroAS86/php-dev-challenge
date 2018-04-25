@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+
 @include('layouts.header')
     
 <body>
@@ -9,11 +8,12 @@
     <div class="blog-header">        
         <div class="container">
             <h1 class="blog-title"> Polvo </h1>
-            <p class="lead blog-description"> Produtos </p>
+            
             <hr>
         </div>
     </div>
 
+    <p id="page"> </p>
     
 
     <div class="container">
@@ -26,5 +26,8 @@
 
     @include('layouts.footer')
 
+    <script src="{{asset('js/page.js')}}"></script>
+
 </body>
+
 </html>
