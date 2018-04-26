@@ -25,14 +25,18 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        return view('polvo.orders');
+        $products = Product::all();
+
+        return view('polvo.orders', [
+        	'product' => $products 
+        ]);
     }
 
     public function store(){
 
     	$validator = Validator::make(request()->all(), [
             'sku' => 'required|string|max:255',
-            'qtd' => 'required',
+            'qtd' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -42,24 +46,36 @@ class OrdersController extends Controller
                 ->withInput();
         }
 
-        $prod = Product::where('sku', request('sku'))->get()->toArray();
-         
-        $total = $prod[0]['price'] * request('qtd');
+        $product = Product::where('sku', request('sku'))->first();
+        
+        if(is_null($product)){
+            return redirect()
+                ->back()
+                ->with('status', 'Produto não cadastrado para SKU informado.');
+        }
+        
+        $total = $product->price * request('qtd');
 
         Order::create([
         	'value' => $total,
-        	'product_id' => $prod[0]['id'],
+        	'product_id' => $product->id,
         ]);
 
         return redirect()
     			->back()
-                ->with('success', 'Pedido adicionado com sucesso'); 
-        /*$product = new Product;
-        $product->request(['name','sdk','price','description']);
-        $product->save();
+                ->with('success', 'Pedido adicionado com sucesso');
+    }
 
-        return redirect()
-    			->back()
-                ->withInput();*/
+     public function delete($key){
+        $order = Order::where('id', $key)->first();
+
+        if(!is_null($order)){
+
+            $order->delete();
+            
+            return redirect('/')
+                ->with('status', 'Pedido excluído');
+        }else
+            return redirect()->back()->withErrors($product);
     }
 }

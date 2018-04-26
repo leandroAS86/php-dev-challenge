@@ -23,9 +23,7 @@
             </div> 
 
           </div><!-- /.row -->         
-
-          <hr>
-                        
+                       
          <div class="form-group">
             <div class=" col">
                 <button type="submit" class="form-control btn btn-primary ">Adicionar Pedido</button> 
@@ -34,8 +32,8 @@
 
         </form>        
       </div>
-    
-
   </div><!-- /.container -->
+
+  <hr>
 
 @endsection

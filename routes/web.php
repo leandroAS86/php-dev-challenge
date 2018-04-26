@@ -10,10 +10,24 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [
-        'uses' => 'ProductsController@index',
         'as' => 'index',
-  ]);
+        'uses' => 'HomeController@index'
+    ]);
+
+
+Route::group(['as' => 'polvo.', 'prefix' => 'home'], function(){
+    Route::get('/', [
+        'as' => 'home',
+        'uses' => 'HomeController@index'
+    ]);
+
+    Route::get('show', [        
+        'as' => 'show', 
+        'uses' => 'HomeController@show'
+    ]);
+});
 
 Route::group(['as' => 'prod.', 'prefix' => 'products'], function(){
     Route::get('/', [
@@ -21,9 +35,24 @@ Route::group(['as' => 'prod.', 'prefix' => 'products'], function(){
         'uses' => 'ProductsController@index'
     ]);
 
+    Route::get('{key}/formupdate', [
+        'as' => 'formupdate', 
+        'uses' => 'ProductsController@formUpdate'
+    ]);
+
     Route::post('products', [        
         'as' => 'store', 
         'uses' => 'ProductsController@store'
+    ]);
+
+    Route::post('{key}/update', [        
+        'as' => 'update', 
+        'uses' => 'ProductsController@update'
+    ]);
+
+    Route::get('{key}/delete', [        
+        'as' => 'delete', 
+        'uses' => 'ProductsController@delete'
     ]);
 });
 
@@ -37,8 +66,9 @@ Route::group(['as' => 'ord.', 'prefix' => 'orders'], function(){
         'as' => 'store', 
         'uses' => 'OrdersController@store'
     ]);
-});
-/*
-Route::get('/products', function () {
-    return view('products');
+
+    Route::get('{key}/delete', [        
+        'as' => 'delete', 
+        'uses' => 'OrdersController@delete'
+    ]);
 });
